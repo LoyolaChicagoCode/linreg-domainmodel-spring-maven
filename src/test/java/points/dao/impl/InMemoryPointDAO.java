@@ -13,16 +13,16 @@ import points.domain.impl.DefaultPoint;
 
 /**
  * An in-memory stub implementation of PointDAO for testing the upper
- * tiers without using a persistent data source. 
+ * tiers without using a persistent data source.
  */
 public class InMemoryPointDAO implements PointDAO {
 
-	private Map<Integer, Point> map = new HashMap<Integer, Point>();
+	private final Map<Integer, Point> map = new HashMap<Integer, Point>();
 
 	private int currentId = 0;
 
 	@Override
-	public synchronized Point create(double x, double y, Color color) {
+	public synchronized Point create(final double x, final double y, final Color color) {
 		++currentId;
 		DefaultPoint p = new DefaultPoint(x, y, color);
 		p.setId(currentId);
@@ -31,7 +31,7 @@ public class InMemoryPointDAO implements PointDAO {
 	}
 
 	@Override
-	public synchronized Point find(int id) {
+	public synchronized Point find(final int id) {
 		return map.get(id);
 	}
 
@@ -46,18 +46,18 @@ public class InMemoryPointDAO implements PointDAO {
 	}
 
 	@Override
-	public synchronized void remove(int id) {
+	public synchronized void remove(final int id) {
 		map.remove(id);
 	}
 
 	@Override
-	public synchronized void update(int id, double x, double y, Color color) {
+	public synchronized void update(final int id, final double x, final double y, final Color color) {
 		DefaultPoint p = (DefaultPoint) map.get(id);
 		p.setX(x);
 		p.setY(y);
 		p.setColor(color);
 	}
-	
+
 	@Override
 	public Collection<Color> findColors() {
 		return Arrays.asList(new Color[] { Color.RED, Color.GREEN, Color.BLUE });

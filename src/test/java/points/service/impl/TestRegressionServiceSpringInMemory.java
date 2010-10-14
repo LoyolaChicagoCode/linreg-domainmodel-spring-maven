@@ -1,80 +1,45 @@
 package points.service.impl;
 
-import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+import javax.annotation.Resource;
+
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import points.service.RegressionService;
-import points.service.RegressionServiceAware;
 
 /**
  * A Spring-supported integration test of DefaultRegressionService that uses
- * TestRegressionService as a test helper. This is the best we can do in terms
- * of reusing the test methods because Java does not support mixins and we
- * already have to extend from the Spring test class. As a consequence, every
- * time we add a test method to TestRegressionService, we have to add a
- * corresponding wrapper test method here.
+ * TestRegressionService as a Testcase Superclass. All dependencies are
+ * managed and injected by the Spring container.
  */
-public class TestRegressionServiceSpringInMemory extends
-		AbstractDependencyInjectionSpringContextTests implements
-		RegressionServiceAware {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {
+	"/applicationContextService.xml",
+	"/applicationContextInMemoryDAO.xml"
+})
+@TestExecutionListeners({
+	DependencyInjectionTestExecutionListener.class,
+})
+public class TestRegressionServiceSpringInMemory extends TestRegressionService {
 
-	private RegressionService service;
-
-	public void setRegressionService(RegressionService service) {
-		this.service = service;
-	}
-
-	private TestRegressionService testHelper;
-
-	public void setTestHelper(TestRegressionService testHelper) {
-		this.testHelper = testHelper;
-	}
-
+	/*
+	 * For DITEL automatically to inject the regression service into the
+	 * instance of this test class, we have to mark the corresponding setter
+	 * as a Resource. To keep the test superclass independent of Spring,
+	 * we override the setter and then mark it.
+	 */
+	@Resource
 	@Override
-	protected String[] getConfigLocations() {
-		return new String[] { "classpath:applicationContextTest.xml",
-				"classpath:applicationContextService.xml",
-				"classpath:applicationContextInMemoryDAO.xml" };
+	public void setRegressionService(final RegressionService service) {
+		super.setRegressionService(service);
 	}
 
-	@Override
-	public void onSetUp() {
-		service.reset();
-	}
-
-	@Override
-	public void onTearDown() {
-		service = null;
-	}
-
-	public void testEmpty() {
-		testHelper.testEmpty();
-	}
-
-	public void testColors() {
-		testHelper.testColors();
-	}
-
-	public void testAddOne() {
-		testHelper.testAddOne();
-	}
-
-	public void testAddTwo() {
-		testHelper.testAddTwo();
-	}
-
-	public void testAddRemoveOne() {
-		testHelper.testAddRemoveOne();
-	}
-
-	public void testAddUpdateOne() {
-		testHelper.testAddUpdateOne();
-	}
-
-	public void testAddRemoveMultiple() {
-		testHelper.testAddRemoveMultiple();
-	}
-
-	public void testReset() {
-		testHelper.testReset();
+	@Before
+	public void setUp() {
+		getRegressionService().reset();
 	}
 }

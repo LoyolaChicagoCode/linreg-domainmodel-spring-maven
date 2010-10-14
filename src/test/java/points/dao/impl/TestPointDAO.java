@@ -27,7 +27,7 @@ public class TestPointDAO implements PointDAOAware {
 
 	private PointDAO dao;
 
-	public void setPointDAO(PointDAO dao) {
+	public void setPointDAO(final PointDAO dao) {
 		this.dao = dao;
 	}
 

@@ -28,8 +28,12 @@ public class TestRegressionService implements RegressionServiceAware {
 
 	private RegressionService service;
 
-	public void setRegressionService(RegressionService service) {
+	public void setRegressionService(final RegressionService service) {
 		this.service = service;
+	}
+
+	protected RegressionService getRegressionService() {
+		return service;
 	}
 
 	@Test

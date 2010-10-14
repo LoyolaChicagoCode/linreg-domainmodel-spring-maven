@@ -1,6 +1,5 @@
 package points.service.impl;
 
-import org.junit.After;
 import org.junit.Before;
 
 import points.dao.impl.InMemoryPointDAO;
@@ -13,13 +12,8 @@ public class TestRegressionServiceInMemory extends TestRegressionService {
 
 	@Before
 	public void setUp() throws Exception {
-		DefaultRegressionService service = new DefaultRegressionService();
+		final DefaultRegressionService service = new DefaultRegressionService();
 		service.setPointDAO(new InMemoryPointDAO());
 		setRegressionService(service);
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		setRegressionService(null);
 	}
 }

@@ -21,12 +21,12 @@ public class DefaultRegressionService implements RegressionService, PointDAOAwar
 	/**
 	 * Sets the DAO used by this service object. This method is required for
 	 * dependency injection.
-	 * 
+	 *
 	 * @param dao
 	 *            the DAO
 	 */
 	@Override
-	public void setPointDAO(PointDAO dao) {
+	public void setPointDAO(final PointDAO dao) {
 		this.dao = dao;
 	}
 
@@ -36,12 +36,12 @@ public class DefaultRegressionService implements RegressionService, PointDAOAwar
 	}
 
 	@Override
-	public void addPoint(double x, double y, Color color) {
+	public void addPoint(final double x, final double y, final Color color) {
 		dao.create(x, y, color);
 	}
 
 	@Override
-	public Point getPoint(int id) {
+	public Point getPoint(final int id) {
 		return dao.find(id);
 	}
 
@@ -87,15 +87,15 @@ public class DefaultRegressionService implements RegressionService, PointDAOAwar
 	}
 
 	@Override
-	public void removePoint(int id) {
+	public void removePoint(final int id) {
 		dao.remove(id);
 	}
 
 	@Override
-	public void editPoint(int id, double x, double y, Color color) {
+	public void editPoint(final int id, final double x, final double y, final Color color) {
 		dao.update(id, x, y, color);
 	}
-	
+
 	@Override
 	public Collection<Color> getColors() {
 		return dao.findColors();

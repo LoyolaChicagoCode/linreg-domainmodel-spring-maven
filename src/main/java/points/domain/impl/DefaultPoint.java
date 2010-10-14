@@ -15,25 +15,25 @@ public class DefaultPoint implements Point, Cloneable {
 
 	private Color color;
 
-	public DefaultPoint(double x, double y, Color color) {
+	public DefaultPoint(final double x, final double y, final Color color) {
 		this.x = x;
 		this.y = y;
 		this.color = color;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
-	public void setX(double x) {
+	public void setX(final double x) {
 		this.x = x;
 	}
 
-	public void setY(double y) {
+	public void setY(final double y) {
 		this.y = y;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(final Color color) {
 		this.color = color;
 	}
 
@@ -58,7 +58,7 @@ public class DefaultPoint implements Point, Cloneable {
 	}
 
 	@Override
-	public int compareTo(Point that) {
+	public int compareTo(final Point that) {
 		if (this.getX() < that.getX())
 			return -1;
 		if (this.getX() > that.getX())
@@ -72,14 +72,14 @@ public class DefaultPoint implements Point, Cloneable {
 			return col;
 		return this.getId() - that.getId();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return getId();
 	}
 
 	@Override
-	public boolean equals(Object that) {
+	public boolean equals(final Object that) {
 		return that instanceof Point && getId() == ((Point) that).getId();
 	}
 
@@ -88,7 +88,7 @@ public class DefaultPoint implements Point, Cloneable {
 		return "{id=" + getId() + ",x=" + getX() + ",y=" + getY() + ",col="
 				+ getColor() + "}";
 	}
-	
+
 	@Override
 	public Point clone() {
 		try {
